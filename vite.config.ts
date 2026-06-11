@@ -3,7 +3,7 @@ import { svelte } from '@sveltejs/vite-plugin-svelte'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: process.env.GITHUB_PAGES ? '/firmium-site/' : '/',
+  base: '/',
   plugins: [svelte()],
   server: {
     port: 5174,
