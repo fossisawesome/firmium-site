@@ -14,9 +14,9 @@
 
 <section class="screenshots">
   <div class="container">
-    <h2>See it in action</h2>
+    <h2 class="section-title">See it in action</h2>
     <div class="grid">
-      {#each screenshots as shot}
+      {#each screenshots as shot (shot.alt)}
         <img src={shot.src} alt={shot.alt} loading="lazy" />
       {/each}
     </div>
@@ -29,17 +29,8 @@
     border-bottom: 1px solid var(--border);
   }
 
-  h2 {
-    text-align: center;
-    font-size: 28px;
-    margin: 0 0 36px;
-    color: var(--accent);
-  }
-
   .grid {
-    display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 16px;
   }
 
   .grid img {

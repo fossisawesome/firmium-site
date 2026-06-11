@@ -22,9 +22,9 @@
 
 <section class="platforms">
   <div class="container">
-    <h2>Available everywhere you listen</h2>
+    <h2 class="section-title">Available everywhere you listen</h2>
     <div class="grid">
-      {#each platforms as platform}
+      {#each platforms as platform (platform.name)}
         <div class="card">
           <h3>{platform.name}</h3>
           <p>{platform.description}</p>
@@ -45,25 +45,13 @@
     border-bottom: 1px solid var(--border);
   }
 
-  h2 {
-    text-align: center;
-    font-size: 28px;
-    margin: 0 0 36px;
-    color: var(--accent);
-  }
-
   .grid {
-    display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 16px;
     max-width: 700px;
     margin: 0 auto;
   }
 
   .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
     padding: 24px;
     text-align: center;
   }

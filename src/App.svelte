@@ -7,8 +7,10 @@
   import Footer from './lib/Footer.svelte'
 </script>
 
+<a href="#main-content" class="skip-link">Skip to content</a>
+
 <Header />
-<main>
+<main id="main-content" tabindex="-1">
   <Hero />
   <Features />
   <Screenshots />

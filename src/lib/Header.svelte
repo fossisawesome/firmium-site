@@ -9,7 +9,7 @@
       <span class="brand-name">Firmium</span>
     </a>
     <nav class="nav">
-      <a href="https://fossisawesome.github.io/firmium-docs/" target="_blank" rel="noreferrer">Docs</a>
+      <a href="https://docs.firmium.app" target="_blank" rel="noreferrer">Docs</a>
       <a href="https://github.com/fossisawesome/firmium" target="_blank" rel="noreferrer">GitHub</a>
       <a href="https://github.com/fossisawesome/firmium/releases" target="_blank" rel="noreferrer" class="btn btn-primary nav-cta">Download</a>
     </nav>
@@ -70,13 +70,13 @@
   }
 
   .nav-cta {
-    color: #1a1408 !important;
+    color: var(--accent-text) !important;
     padding: 8px 16px;
     font-size: 14px;
   }
 
   .nav-cta:hover {
-    color: #1a1408 !important;
+    color: var(--accent-text) !important;
   }
 
   @media (max-width: 600px) {

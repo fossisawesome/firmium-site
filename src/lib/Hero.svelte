@@ -20,7 +20,7 @@
       <a class="btn btn-secondary" href="https://github.com/fossisawesome/firmium" target="_blank" rel="noreferrer">
         View on GitHub
       </a>
-      <a class="btn btn-secondary" href="https://fossisawesome.github.io/firmium-docs/" target="_blank" rel="noreferrer">
+      <a class="btn btn-secondary" href="https://docs.firmium.app" target="_blank" rel="noreferrer">
         Read the Docs
       </a>
     </div>

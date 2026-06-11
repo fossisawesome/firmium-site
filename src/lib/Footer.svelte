@@ -7,7 +7,7 @@
     <p>Firmium is free software, licensed under GPL-3.0.</p>
     <nav class="links">
       <a href="https://github.com/fossisawesome/firmium" target="_blank" rel="noreferrer">GitHub</a>
-      <a href="https://fossisawesome.github.io/firmium-docs/" target="_blank" rel="noreferrer">Docs</a>
+      <a href="https://docs.firmium.app" target="_blank" rel="noreferrer">Docs</a>
       <a href="https://github.com/fossisawesome/firmium/blob/main/LICENSE" target="_blank" rel="noreferrer">License</a>
     </nav>
     <p class="copyright">© {year} Firmium contributors</p>

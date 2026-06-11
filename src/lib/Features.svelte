@@ -11,7 +11,7 @@
     },
     {
       title: 'Crossfade',
-      description: 'Smooth, configurable crossfade between tracks for gapless listening.',
+      description: 'Configurable crossfade between tracks for gapless listening.',
     },
     {
       title: 'Secure credential storage',
@@ -23,7 +23,7 @@
     },
     {
       title: 'Lyrics & artist bios',
-      description: 'Synced and unsynced lyrics, plus Wikipedia artist biographies.',
+      description: 'Synced and unsynced lyrics, plus artist biographies.',
     },
     {
       title: '18 color themes, plus your own',
@@ -39,16 +39,16 @@
     },
     {
       title: 'Full OpenSubsonic API',
-      description: 'Scrobbling, search, and playlist support for Navidrome and other OpenSubsonic servers.',
+      description: 'Scrobbling, search, and playlist support across the OpenSubsonic API.',
     },
   ]
 </script>
 
 <section class="features">
   <div class="container">
-    <h2>What Firmium can do</h2>
+    <h2 class="section-title">What Firmium can do</h2>
     <div class="grid">
-      {#each features as feature}
+      {#each features as feature (feature.title)}
         <div class="card">
           <h3>{feature.title}</h3>
           <p>{feature.description}</p>
@@ -64,23 +64,11 @@
     border-bottom: 1px solid var(--border);
   }
 
-  h2 {
-    text-align: center;
-    font-size: 28px;
-    margin: 0 0 36px;
-    color: var(--accent);
-  }
-
   .grid {
-    display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 16px;
   }
 
   .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
     padding: 20px;
   }
 
