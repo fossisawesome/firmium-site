@@ -10,6 +10,7 @@
     </a>
     <nav class="nav">
       <a href="https://docs.firmium.app" target="_blank" rel="noreferrer">Docs</a>
+      <a href="https://discord.gg/bfZ3rpYJXk" target="_blank" rel="noreferrer">Discord</a>
       <a href="https://github.com/fossisawesome/firmium" target="_blank" rel="noreferrer">GitHub</a>
       <a href="https://github.com/fossisawesome/firmium/releases" target="_blank" rel="noreferrer" class="btn btn-primary nav-cta">Download</a>
     </nav>
