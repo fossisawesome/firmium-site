@@ -39,6 +39,7 @@
     align-items: center;
     gap: 10px;
     color: var(--text);
+    flex-shrink: 0;
   }
 
   .brand:hover {
@@ -64,6 +65,8 @@
 
   .nav a {
     color: var(--text);
+    white-space: nowrap;
+    flex-shrink: 0;
   }
 
   .nav a:hover {
@@ -88,6 +91,18 @@
 
     .brand-name {
       font-size: 16px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .nav {
+      gap: 8px;
+      font-size: 13px;
+    }
+
+    .nav-cta {
+      padding: 6px 12px;
+      font-size: 12px;
     }
   }
 </style>
