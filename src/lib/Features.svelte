@@ -7,7 +7,7 @@
   const features: Feature[] = [
     {
       title: 'Native audio engine',
-      description: 'Powered by Rodio on Linux and ExoPlayer on Android, not a bundled web view player.',
+      description: 'Powered by symphonia and cpal on desktop, ExoPlayer on Android — no web view, no JavaScript.',
     },
     {
       title: 'Crossfade',
