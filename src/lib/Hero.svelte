@@ -11,7 +11,8 @@
     </h1>
     <p class="tagline">
       Smooth, fast, simple, forever. Stream your library from Navidrome or
-      any OpenSubsonic-compatible server, on Linux, Windows, or Android.
+      any OpenSubsonic-compatible server, on Linux, Windows, macOS, FreeBSD,
+      or Android.
     </p>
     <div class="hero-actions">
       <a class="btn btn-primary" href="https://github.com/fossisawesome/firmium/releases" target="_blank" rel="noreferrer">

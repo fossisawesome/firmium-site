@@ -14,6 +14,14 @@
       description: 'Available as an NSIS installer.',
     },
     {
+      name: 'macOS',
+      description: 'Available as a .dmg for Apple Silicon and Intel.',
+    },
+    {
+      name: 'FreeBSD',
+      description: 'Available as a .pkg.',
+    },
+    {
       name: 'Android',
       description: 'Native Kotlin + Jetpack Compose app, available as an APK.',
     },

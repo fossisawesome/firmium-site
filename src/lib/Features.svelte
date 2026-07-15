@@ -15,7 +15,7 @@
     },
     {
       title: 'Secure credential storage',
-      description: 'Credentials are stored in the OS keyring on Linux and Android Keystore on Android.',
+      description: 'Credentials are stored in the OS keyring — libsecret on Linux/FreeBSD, Credential Manager on Windows, Keychain on macOS — and the Android Keystore on Android.',
     },
     {
       title: 'Lock screen controls',
