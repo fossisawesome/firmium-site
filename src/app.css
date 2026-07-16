@@ -1,15 +1,7 @@
+@import './styles/_tokens.scss';
+
 :root {
-  color-scheme: dark;
-  --bg: #0f0f0f;
-  --surface: #1a1a1a;
-  --surface2: #242424;
-  --border: rgba(255, 255, 255, 0.08);
-  --text: #f0f0f0;
-  --muted: #888;
-  --accent: #e8c97e;
-  --accent-text: #1a1408;
-  --accent2: #863bff;
-  --font: 'Courier New', monospace;
+  --accent-text: #151109;
   --timing: 0.15s;
 }
 

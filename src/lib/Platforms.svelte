@@ -1,82 +1,132 @@
 <script lang="ts">
-  interface Platform {
-    name: string
-    description: string
-  }
+  import { revealOnScroll } from './revealOnScroll'
 
-  const platforms: Platform[] = [
-    {
-      name: 'Linux Desktop',
-      description: 'Available as .deb, .rpm, and Arch packages.',
-    },
-    {
-      name: 'Windows',
-      description: 'Available as an NSIS installer.',
-    },
-    {
-      name: 'macOS',
-      description: 'Available as a .dmg for Apple Silicon and Intel.',
-    },
-    {
-      name: 'FreeBSD',
-      description: 'Available as a .pkg.',
-    },
-    {
-      name: 'Android',
-      description: 'Native Kotlin + Jetpack Compose app, available as an APK.',
-    },
+  const platforms = [
+    { icon: 'fa-brands fa-linux', label: 'Linux' },
+    { icon: 'fa-brands fa-windows', label: 'Windows' },
+    { icon: 'fa-brands fa-apple', label: 'macOS' },
+    { icon: 'fa-brands fa-freebsd', label: 'FreeBSD' },
+    { icon: 'fa-brands fa-android', label: 'Android' },
+    { icon: 'fa-solid fa-car', label: 'Android Auto' },
+    { icon: 'fa-regular fa-clock', label: 'Wear OS' },
+    { icon: 'fa-solid fa-tv', label: 'Android TV' },
+    { icon: 'fa-solid fa-terminal', label: 'Terminal' },
   ]
+
+  let cliHover = $state(false)
 </script>
 
 <section class="platforms">
   <div class="container">
-    <h2 class="section-title">Available everywhere you listen</h2>
-    <div class="grid">
-      {#each platforms as platform (platform.name)}
-        <div class="card">
-          <h3>{platform.name}</h3>
-          <p>{platform.description}</p>
+    <div class="header reveal" use:revealOnScroll>
+      <div class="eyebrow">PLATFORMS</div>
+      <h2>Everywhere you are</h2>
+      <p class="subhead">One login, one library, synced across all of it.</p>
+    </div>
+    <div class="badges reveal" use:revealOnScroll>
+      {#each platforms as p}
+        <div
+          class="badge"
+          class:has-tooltip={p.label === 'Terminal'}
+          role="group"
+          onmouseenter={() => p.label === 'Terminal' && (cliHover = true)}
+          onmouseleave={() => p.label === 'Terminal' && (cliHover = false)}
+        >
+          <i class={p.icon}></i>
+          <span>{p.label}</span>
+          {#if p.label === 'Terminal' && cliHover}
+            <div class="tooltip">
+              <div>$ firmium --now-playing▮</div>
+              <div class="dim">nothing queued — point me at a server</div>
+            </div>
+          {/if}
         </div>
       {/each}
-    </div>
-    <div class="cta">
-      <a class="btn btn-primary" href="https://github.com/fossisawesome/firmium/releases" target="_blank" rel="noreferrer">
-        Get the latest release
-      </a>
     </div>
   </div>
 </section>
 
 <style>
   .platforms {
-    padding: 60px 0;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .grid {
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    max-width: 700px;
+    max-width: 1160px;
     margin: 0 auto;
+    padding: 40px 48px;
   }
 
-  .card {
-    padding: 24px;
+  .header {
     text-align: center;
+    margin-bottom: 40px;
   }
 
-  .card h3 {
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s, transform 0.6s;
+  }
+
+  .reveal:global(.show) {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .eyebrow {
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+  }
+
+  h2 {
+    font-size: 38px;
     margin: 0 0 8px;
-    color: var(--text);
   }
 
-  .card p {
-    margin: 0;
+  .subhead {
     color: var(--muted);
-    font-size: 14px;
+    margin: 0;
   }
 
-  .cta {
-    text-align: center;
-    margin-top: 32px;
+  .badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+  }
+
+  .badge {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 20px;
+    transition: border-color 0.15s, transform 0.15s;
+  }
+
+  .badge:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  .tooltip {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 12px;
+    font-size: 11px;
+    white-space: nowrap;
+    z-index: 5;
+  }
+
+  .tooltip .dim {
+    color: var(--muted);
+    margin-top: 2px;
   }
 </style>
