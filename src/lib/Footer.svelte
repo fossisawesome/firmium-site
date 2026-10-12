@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { VERSION } from './changelog'
+  import { version } from './changelog'
 </script>
 
 <footer class="footer">
@@ -30,7 +30,7 @@
       <a href="https://github.com/fossisawesome/firmium/blob/main/LICENSE" target="_blank" rel="noreferrer">GPL-3.0</a>
     </div>
   </div>
-  <div class="version-line">Currently {VERSION}</div>
+  {#if $version}<div class="version-line">Currently {$version}</div>{/if}
 </footer>
 
 <style>

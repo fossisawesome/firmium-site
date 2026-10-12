@@ -5,7 +5,6 @@
     { label: 'Linux' },
     { label: 'Windows' },
     { label: 'macOS' },
-    { label: 'FreeBSD' },
     { label: 'Android' },
     { label: 'Android Auto' },
     { label: 'Wear OS' },

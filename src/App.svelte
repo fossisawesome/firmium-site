@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte'
   import { initTheme } from './lib/theme'
-  import { VERSION } from './lib/changelog'
+  import { loadChangelog, version } from './lib/changelog'
   import { matchesKonami, matchesSubsonic } from './lib/easterEggs'
   import Nav from './lib/Nav.svelte'
   import Hero from './lib/Hero.svelte'
@@ -17,7 +17,6 @@
   import MiniPlayer from './lib/MiniPlayer.svelte'
   import LogoEasterEgg from './lib/LogoEasterEgg.svelte'
 
-  let shortcutsOpen = $state(false)
   let logoEggOpen = $state(false)
   let diagOpen = $state(false)
   let konamiActive = $state(false)
@@ -28,8 +27,7 @@
   let diagTimer: ReturnType<typeof setTimeout> | null = null
 
   function closeTopmost() {
-    if (shortcutsOpen) shortcutsOpen = false
-    else if (diagOpen) diagOpen = false
+    if (diagOpen) diagOpen = false
     else if (logoEggOpen) logoEggOpen = false
   }
 
@@ -50,10 +48,6 @@
       }
     }
 
-    if (e.key === '?') {
-      shortcutsOpen = !shortcutsOpen
-    }
-
     if (e.key === 'Escape') {
       closeTopmost()
     }
@@ -66,6 +60,7 @@
   }
 
   onMount(() => {
+    loadChangelog()
     initTheme()
   })
 </script>
@@ -79,10 +74,10 @@
 <div class="page" class:degauss={konamiActive}>
   <a href="#main-content" class="skip-link">Skip to content</a>
 
-  <Nav version={VERSION} onLogoEgg={() => (logoEggOpen = true)} />
+  <Nav version={$version} onLogoEgg={() => (logoEggOpen = true)} />
 
   <main id="main-content" tabindex="-1">
-    <Hero {shortcutsOpen} {diagOpen} onOpenDiag={openDiag} />
+    <Hero {diagOpen} onOpenDiag={openDiag} />
     <HowItWorks />
     <Features />
     <Gallery />

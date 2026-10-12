@@ -1,10 +1,9 @@
 <script lang="ts">
-  import ShortcutsOverlay from './ShortcutsOverlay.svelte'
   import DiagnosticsHud from './DiagnosticsHud.svelte'
   import { fetchStarCount } from './github'
   import homepage from '../assets/screenshots/homepage.png'
 
-  let { shortcutsOpen, diagOpen, onOpenDiag }: { shortcutsOpen: boolean; diagOpen: boolean; onOpenDiag: () => void } = $props()
+  let { diagOpen, onOpenDiag }: { diagOpen: boolean; onOpenDiag: () => void } = $props()
 
   let stars = $state<number | null>(null)
   let pressTimer: ReturnType<typeof setTimeout> | null = null
@@ -64,14 +63,12 @@
       <div class="hero-glow"></div>
       <img src={homepage} alt="Firmium home screen" class="hero-screenshot" />
       <DiagnosticsHud open={diagOpen} />
-      <ShortcutsOverlay open={shortcutsOpen} />
       <div class="visualizer">
         {#each Array(6) as _, i}
           <span class="vbar" style="animation-duration: {0.6 + i * 0.1}s; animation-delay: {i * 0.05}s"></span>
         {/each}
       </div>
     </div>
-    <p class="shortcut-hint">Press <kbd>?</kbd> for keyboard shortcuts</p>
   </div>
 </section>
 
@@ -191,19 +188,6 @@
   @keyframes vbarPulse {
     0%, 100% { height: 4px; }
     50% { height: 16px; }
-  }
-
-  .shortcut-hint {
-    color: var(--muted);
-    font-size: 11px;
-    margin-top: 28px;
-  }
-
-  kbd {
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 1px 5px;
-    font-family: var(--font);
   }
 
   @media (max-width: 700px) {

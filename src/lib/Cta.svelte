@@ -13,7 +13,7 @@
           View source on GitHub
         </a>
       </div>
-      <p class="platforms-caption">Linux · Windows · macOS · FreeBSD · Android</p>
+      <p class="platforms-caption">Linux · Windows · macOS · Android</p>
     </div>
   </div>
 </section>

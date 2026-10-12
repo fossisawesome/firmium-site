@@ -1,14 +1,9 @@
 <script lang="ts">
   import { revealOnScroll } from './revealOnScroll'
-  import { fetchChangelog, FALLBACK_CHANGELOG, type ChangelogEntry } from './changelog'
-
-  let entries = $state<ChangelogEntry[]>(FALLBACK_CHANGELOG)
-
-  $effect(() => {
-    fetchChangelog().then((result) => (entries = result))
-  })
+  import { changelog as entries } from './changelog'
 </script>
 
+{#if $entries.length > 0}
 <section class="changelog">
   <div class="container">
     <div class="header reveal" use:revealOnScroll>
@@ -16,7 +11,7 @@
       <h2>Actively built, in the open</h2>
     </div>
     <div class="list reveal" use:revealOnScroll>
-      {#each entries as entry}
+      {#each $entries as entry}
         <div class="entry">
           <div class="version-row">
             <span class="version">{entry.version}</span>
@@ -35,6 +30,7 @@
     </a>
   </div>
 </section>
+{/if}
 
 <style>
   .changelog {

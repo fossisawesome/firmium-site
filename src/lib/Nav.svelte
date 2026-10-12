@@ -21,7 +21,7 @@
       <span class="brand-name">Firmium</span>
     </a>
     <div class="right">
-      <span class="version-pill">{version}</span>
+      {#if version}<span class="version-pill">{version}</span>{/if}
       <a class="btn btn-primary nav-cta" href="#download">
         Download
       </a>
