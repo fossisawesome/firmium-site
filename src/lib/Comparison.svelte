@@ -2,10 +2,9 @@
   import { revealOnScroll } from './revealOnScroll'
 
   const rows: [string, string][] = [
-    ['Own your files', '✗'],
-    ['Local file support', '✗'],
+    ['Own your files, play local folders', '✗'],
     ['No subscription', '$10–15/mo'],
-    ['Open source GPL-3.0', '✗'],
+    ['Open source (GPL-3.0)', '✗'],
     ['No account required', '✗'],
     ['Works fully offline', 'Limited'],
   ]
@@ -22,7 +21,7 @@
         <tr>
           <th></th>
           <th class="accent">Firmium</th>
-          <th>Typical streaming app</th>
+          <th>Paid streaming services</th>
         </tr>
       </thead>
       <tbody>
@@ -50,25 +49,6 @@
     margin-bottom: 32px;
   }
 
-  .reveal {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.6s, transform 0.6s;
-  }
-
-  .reveal:global(.show) {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .eyebrow {
-    color: var(--accent);
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    margin-bottom: 8px;
-  }
-
   h2 {
     font-size: 38px;
     margin: 0;
@@ -76,6 +56,7 @@
 
   table {
     width: 100%;
+    table-layout: fixed;
     border-collapse: collapse;
     border: 1px solid var(--border);
     border-radius: 14px;
@@ -87,6 +68,11 @@
     text-align: left;
     border-bottom: 1px solid var(--border);
     font-size: 14px;
+    overflow-wrap: break-word;
+  }
+
+  th:first-child, td:first-child {
+    width: 42%;
   }
 
   th:nth-child(2), td:nth-child(2),
@@ -104,5 +90,16 @@
 
   .muted {
     color: var(--muted);
+  }
+
+  @media (max-width: 700px) {
+    .comparison {
+      padding: 40px 20px;
+    }
+
+    th, td {
+      padding: 10px 8px;
+      font-size: 12px;
+    }
   }
 </style>

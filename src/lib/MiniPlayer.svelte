@@ -12,14 +12,14 @@
   <div class="container mini-inner">
     <div class="cover"></div>
     <div class="track-info">
-      <div class="track-name">Nothing playing — this is a preview</div>
+      <div class="track-name">Now Playing — a track from your library</div>
       <div class="progress"><div class="fill"></div></div>
     </div>
-    <div class="controls">
-      <i class="fa-solid fa-backward-step"></i>
-      <i class="fa-solid fa-play"></i>
-      <i class="fa-solid fa-forward-step"></i>
-    </div>
+    <svg class="controls" width="64" height="16" viewBox="0 0 64 16" fill="currentColor" aria-hidden="true">
+      <path d="M1 1h2v14H1zM14 1v14L5 8z" />
+      <path d="M26 1v14l11-7z" />
+      <path d="M61 1h2v14h-2zM50 1v14l9-7z" />
+    </svg>
   </div>
 </div>
 

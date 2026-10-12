@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte'
   import { initTheme } from './lib/theme'
+  import { VERSION } from './lib/changelog'
   import { matchesKonami, matchesSubsonic } from './lib/easterEggs'
   import Nav from './lib/Nav.svelte'
   import Hero from './lib/Hero.svelte'
@@ -14,11 +15,7 @@
   import Cta from './lib/Cta.svelte'
   import Footer from './lib/Footer.svelte'
   import MiniPlayer from './lib/MiniPlayer.svelte'
-  import ShortcutsOverlay from './lib/ShortcutsOverlay.svelte'
-  import DiagnosticsHud from './lib/DiagnosticsHud.svelte'
   import LogoEasterEgg from './lib/LogoEasterEgg.svelte'
-
-  const VERSION = 'v8.1.0'
 
   let shortcutsOpen = $state(false)
   let logoEggOpen = $state(false)
@@ -27,8 +24,8 @@
   let subsonicFlash = $state(false)
 
   let keyBuffer: string[] = []
-  let charBuffer = ''
-  let pressTimer: ReturnType<typeof setTimeout> | null = null
+  let letterBuffer = ''
+  let diagTimer: ReturnType<typeof setTimeout> | null = null
 
   function closeTopmost() {
     if (shortcutsOpen) shortcutsOpen = false
@@ -37,17 +34,18 @@
   }
 
   function onKeydown(e: KeyboardEvent) {
+    if (e.ctrlKey || e.metaKey || e.altKey || (e.target as HTMLElement | null)?.closest?.('input, textarea, select, [contenteditable]')) return
     keyBuffer = [...keyBuffer, e.key].slice(-10)
     if (matchesKonami(keyBuffer)) {
       konamiActive = true
       setTimeout(() => (konamiActive = false), 2600)
     }
 
-    if (e.key.length === 1) {
-      charBuffer = (charBuffer + e.key).slice(-16)
-      if (matchesSubsonic(charBuffer)) {
+    if (/^[a-z]$/i.test(e.key)) {
+      letterBuffer = (letterBuffer + e.key).slice(-8)
+      if (matchesSubsonic(letterBuffer)) {
         subsonicFlash = true
-        charBuffer = ''
+        letterBuffer = ''
         setTimeout(() => (subsonicFlash = false), 900)
       }
     }
@@ -61,21 +59,10 @@
     }
   }
 
-  function onHeroContextMenu(e: MouseEvent) {
-    e.preventDefault()
+  function openDiag() {
     diagOpen = true
-    setTimeout(() => (diagOpen = false), 4000)
-  }
-
-  function onHeroPointerDown() {
-    pressTimer = setTimeout(() => {
-      diagOpen = true
-      setTimeout(() => (diagOpen = false), 4000)
-    }, 550)
-  }
-
-  function onHeroPointerUp() {
-    if (pressTimer) clearTimeout(pressTimer)
+    if (diagTimer) clearTimeout(diagTimer)
+    diagTimer = setTimeout(() => (diagOpen = false), 4000)
   }
 
   onMount(() => {
@@ -85,35 +72,31 @@
 
 <svelte:window onkeydown={onKeydown} />
 
-<a href="#main-content" class="skip-link">Skip to content</a>
+<div class="crt-overlay"></div>
+<div class="crt-vignette"></div>
+<div class="crt-boot"></div>
 
-<Nav version={VERSION} onLogoEgg={() => (logoEggOpen = true)} />
+<div class="page" class:degauss={konamiActive}>
+  <a href="#main-content" class="skip-link">Skip to content</a>
 
-<main
-  id="main-content"
-  tabindex="-1"
-  class:degauss={konamiActive}
-  oncontextmenu={onHeroContextMenu}
-  onpointerdown={onHeroPointerDown}
-  onpointerup={onHeroPointerUp}
-  onpointerleave={onHeroPointerUp}
->
-  <Hero />
-  <DiagnosticsHud open={diagOpen} />
-  <HowItWorks />
-  <Features />
-  <Gallery />
-  <Platforms />
-  <Comparison />
-  <Themes />
-  <Changelog />
-  <Cta />
-</main>
+  <Nav version={VERSION} onLogoEgg={() => (logoEggOpen = true)} />
 
-<Footer />
-<MiniPlayer />
+  <main id="main-content" tabindex="-1">
+    <Hero {shortcutsOpen} {diagOpen} onOpenDiag={openDiag} />
+    <HowItWorks />
+    <Features />
+    <Gallery />
+    <Platforms />
+    <Comparison />
+    <Themes />
+    <Changelog />
+    <Cta />
+  </main>
 
-<ShortcutsOverlay open={shortcutsOpen} onClose={() => (shortcutsOpen = false)} />
+  <Footer />
+  <MiniPlayer />
+</div>
+
 <LogoEasterEgg open={logoEggOpen} onClose={() => (logoEggOpen = false)} />
 
 {#if konamiActive}
@@ -128,12 +111,21 @@
 {/if}
 
 <style>
+  :global(body) {
+    scroll-behavior: smooth;
+  }
+
+  :global(::selection) {
+    background: color-mix(in srgb, var(--accent) 35%, transparent);
+    color: var(--text);
+  }
+
   :global(.skip-link) {
     position: absolute;
     left: -9999px;
     top: 0;
     background: var(--accent);
-    color: #151109;
+    color: var(--accent-text);
     padding: 10px 16px;
     z-index: 1000;
   }
@@ -143,17 +135,52 @@
     top: 8px;
   }
 
-  :global(main.degauss) {
+  .crt-overlay {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 200;
+    background: repeating-linear-gradient(rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0) 2px, rgba(0, 0, 0, 0.1) 3px);
+    mix-blend-mode: multiply;
+  }
+
+  .crt-vignette {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 199;
+    box-shadow: inset 0 0 180px rgba(0, 0, 0, 0.75);
+  }
+
+  .crt-boot {
+    position: fixed;
+    inset: 0;
+    z-index: 400;
+    pointer-events: none;
+    background: #000;
+    animation: crtBoot 1.1s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
+  }
+
+  @keyframes crtBoot {
+    0% { transform: scaleY(0.002) scaleX(1); opacity: 1; background: #fff; }
+    6% { transform: scaleY(0.002) scaleX(1); opacity: 1; background: #fff; }
+    9% { transform: scaleY(0.01) scaleX(1); background: #000; }
+    12% { transform: scaleY(1) scaleX(1); opacity: 1; }
+    100% { transform: scaleY(1) scaleX(1); opacity: 0; }
+  }
+
+  :global(.page.degauss) {
     animation: degauss 0.9s ease;
   }
 
   @keyframes degauss {
-    0% { transform: skew(0deg) scale(1); }
-    20% { transform: skew(-2deg) scale(1.01); }
-    40% { transform: skew(2deg) scale(0.99); }
-    60% { transform: skew(-1deg) scale(1.005); }
-    80% { transform: skew(1deg) scale(0.998); }
-    100% { transform: skew(0deg) scale(1); }
+    0% { transform: scale(1) skewX(0); }
+    10% { transform: scale(1.02, 0.98) skewX(2deg); }
+    20% { transform: scale(0.98, 1.02) skewX(-2deg); }
+    30% { transform: scale(1.01, 0.99) skewX(1deg); }
+    45% { transform: scale(0.995, 1.005) skewX(-0.5deg); }
+    60% { transform: scale(1.002, 0.998); }
+    100% { transform: scale(1) skewX(0); }
   }
 
   .konami-card {
@@ -176,13 +203,16 @@
   }
 
   .konami-title {
-    font-size: 48px;
+    font-size: 52px;
     font-weight: 700;
+    letter-spacing: 0.1em;
     color: var(--accent);
+    text-shadow: 0 0 30px color-mix(in srgb, var(--accent) 70%, transparent);
   }
 
   .konami-sub {
-    font-size: 16px;
+    font-size: 13px;
+    letter-spacing: 0.2em;
     color: var(--muted);
     margin-top: 8px;
   }
@@ -190,21 +220,22 @@
   .subsonic-flash {
     position: fixed;
     inset: 0;
-    z-index: 500;
+    z-index: 450;
     pointer-events: none;
     background: repeating-linear-gradient(
       0deg,
-      color-mix(in srgb, var(--accent) 40%, transparent) 0px,
-      transparent 2px,
-      transparent 4px
+      color-mix(in srgb, var(--accent) 35%, transparent) 0px,
+      color-mix(in srgb, var(--accent) 35%, transparent) 2px,
+      transparent 3px,
+      transparent 6px
     );
     mix-blend-mode: screen;
-    animation: subsonicFade 0.9s ease forwards;
+    animation: subsonicFade 0.9s ease-out forwards;
   }
 
   @keyframes subsonicFade {
     0% { opacity: 0; }
-    30% { opacity: 1; }
+    10% { opacity: 1; }
     100% { opacity: 0; }
   }
 </style>

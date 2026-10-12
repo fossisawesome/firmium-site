@@ -1,12 +1,12 @@
-<section class="cta-wrap">
+<section class="cta-wrap" id="download">
   <div class="container">
     <div class="cta-panel">
       <div class="comet-ring"></div>
       <div class="scanline"></div>
       <h2>Local files or your own server. Own your library.</h2>
-      <p>No subscriptions, no lock-in, no account required.</p>
+      <p>Firmium is a client, not a service — point it at a folder on disk, Navidrome, or any OpenSubsonic server and it's yours, forever.</p>
       <div class="actions">
-        <a class="btn btn-primary" href="https://github.com/fossisawesome/firmium/releases" target="_blank" rel="noreferrer">
+        <a class="btn btn-primary" href="https://github.com/fossisawesome/firmium/releases/latest" target="_blank" rel="noreferrer">
           Get the latest release
         </a>
         <a class="btn btn-secondary" href="https://github.com/fossisawesome/firmium" target="_blank" rel="noreferrer">
@@ -28,7 +28,7 @@
   .cta-panel {
     position: relative;
     background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 10%, var(--bg)), var(--surface));
-    border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+    border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
     border-radius: 20px;
     padding: 64px 48px;
     text-align: center;
@@ -37,10 +37,19 @@
 
   .comet-ring {
     position: absolute;
-    inset: -2px;
+    inset: -100%;
     border-radius: 20px;
-    padding: 2px;
-    background: conic-gradient(from 0deg, transparent 0%, transparent 85%, #fff 92%, var(--accent) 96%, transparent 100%);
+    padding: 3px;
+    background: conic-gradient(
+      from 0deg,
+      transparent 0%,
+      color-mix(in srgb, var(--accent) 15%, transparent) 8%,
+      var(--accent) 20%,
+      color-mix(in srgb, var(--accent) 70%, white) 24%,
+      var(--accent) 28%,
+      color-mix(in srgb, var(--accent) 15%, transparent) 40%,
+      transparent 55%
+    );
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
@@ -55,19 +64,18 @@
 
   .scanline {
     position: absolute;
+    top: 0;
     left: 0;
     right: 0;
     height: 2px;
-    background: color-mix(in srgb, var(--accent) 60%, transparent);
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
     animation: sweepScanline 4s linear infinite;
     pointer-events: none;
   }
 
   @keyframes sweepScanline {
-    0% { top: 0; opacity: 0; }
-    5% { opacity: 1; }
-    95% { opacity: 1; }
-    100% { top: 100%; opacity: 0; }
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(600%); }
   }
 
   h2 {
@@ -79,6 +87,8 @@
   p {
     color: var(--muted);
     position: relative;
+    max-width: 520px;
+    margin: 0 auto;
   }
 
   .actions {

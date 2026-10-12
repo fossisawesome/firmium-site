@@ -12,11 +12,6 @@
   --font: 'Courier New', monospace;
 }
 
-@keyframes pulseDot {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.4; }
-}
-
 @keyframes flicker {
   0%, 100%, 92%, 94% { opacity: 1; }
   93% { opacity: 0.85; }

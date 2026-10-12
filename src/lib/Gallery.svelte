@@ -1,14 +1,13 @@
 <script lang="ts">
   import { revealOnScroll } from './revealOnScroll'
-  import WindowChrome from './WindowChrome.svelte'
   import homepage from '../assets/screenshots/homepage.png'
   import artist from '../assets/screenshots/artist.png'
   import search from '../assets/screenshots/search.png'
 
   const items = [
-    { label: 'Home', img: homepage, title: 'Home', desc: 'Recently played, recently played artists, and random picks by genre.' },
-    { label: 'Artist', img: artist, title: 'Artist pages', desc: "Discography, biography, and a one-tap play of an artist's top tracks." },
-    { label: 'Search', img: search, title: 'Search', desc: 'Fast full-library search across songs, albums, and artists.' },
+    { img: homepage, title: 'Home', desc: 'Recently played, recently played artists, and random picks by genre.' },
+    { img: artist, title: 'Artist pages', desc: "Discography, biography, and a one-tap play of an artist's top tracks." },
+    { img: search, title: 'Search', desc: 'Fast full-library search across songs, albums, and artists.' },
   ]
 </script>
 
@@ -16,14 +15,14 @@
   <div class="container">
     <div class="header reveal" use:revealOnScroll>
       <div class="eyebrow">GALLERY</div>
-      <h2>A closer look</h2>
+      <h2>Every screen, considered</h2>
     </div>
     <div class="grid reveal" use:revealOnScroll>
       {#each items as item}
         <div class="card">
-          <WindowChrome label={item.label} size="small">
+          <div class="frame">
             <img src={item.img} alt={item.title} class="shot" />
-          </WindowChrome>
+          </div>
           <h3>{item.title}</h3>
           <p>{item.desc}</p>
         </div>
@@ -42,25 +41,6 @@
   .header {
     text-align: center;
     margin-bottom: 48px;
-  }
-
-  .reveal {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.6s, transform 0.6s;
-  }
-
-  .reveal:global(.show) {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .eyebrow {
-    color: var(--accent);
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    margin-bottom: 8px;
   }
 
   h2 {
@@ -82,12 +62,15 @@
     transform: translateY(-4px);
   }
 
-  .card :global(.window) {
-    border-color: var(--border);
+  .frame {
+    border: 1px solid var(--border);
+    border-radius: 11px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
     transition: border-color 0.2s;
   }
 
-  .card:hover :global(.window) {
+  .card:hover .frame {
     border-color: color-mix(in srgb, var(--accent) 40%, transparent);
   }
 
@@ -118,6 +101,10 @@
   @media (max-width: 900px) {
     .grid {
       grid-template-columns: 1fr;
+    }
+
+    .shot {
+      height: auto;
     }
   }
 </style>

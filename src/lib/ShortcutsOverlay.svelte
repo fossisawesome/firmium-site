@@ -1,64 +1,68 @@
 <script lang="ts">
-  let { open, onClose }: { open: boolean; onClose: () => void } = $props()
+  let { open }: { open: boolean } = $props()
 </script>
 
 {#if open}
-  <div class="scrim" onclick={onClose} onkeydown={(e) => e.key === 'Escape' && onClose()} role="button" tabindex="-1">
-    <div class="panel" onclick={(e) => e.stopPropagation()} onkeydown={(e) => e.stopPropagation()} role="dialog" tabindex="-1">
-      <h3>Keyboard shortcuts</h3>
-      <dl>
-        <dt>Space</dt><dd>Play / Pause</dd>
-        <dt>Esc</dt><dd>Close overlay</dd>
-      </dl>
-      <p class="cli">firmium play-pause · next · prev · volume &lt;0-100&gt; · shuffle-toggle</p>
-    </div>
+  <div class="panel">
+    <div class="title">KEYBOARD SHORTCUTS</div>
+    <dl>
+      <div><kbd>Esc</kbd> Close overlay</div>
+    </dl>
+    <p class="cli">Or drive it headless: firmium play-pause · next · prev · volume &lt;0-100&gt; · shuffle-toggle</p>
+    <p class="hint">Press ? or Esc to close</p>
   </div>
 {/if}
 
 <style>
-  .scrim {
-    position: fixed;
+  .panel {
+    position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.6);
-    z-index: 200;
+    z-index: 70;
+    background: rgba(0, 0, 0, 0.82);
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-
-  .panel {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 11px;
-    padding: 24px 28px;
     text-align: left;
-    max-width: 360px;
   }
 
-  h3 {
-    margin: 0 0 16px;
+  .title {
+    color: var(--accent);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    margin-bottom: 10px;
+    font-size: 13px;
   }
 
   dl {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 6px 16px;
-    margin: 0 0 16px;
+    margin: 0 0 10px;
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.9;
   }
 
-  dt {
-    color: var(--accent);
-    font-weight: 700;
+  dl div {
+    display: block;
   }
 
-  dd {
-    margin: 0;
-    color: var(--muted);
+  kbd {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-family: var(--font);
+    margin-right: 6px;
   }
 
   .cli {
-    font-size: 12px;
     color: var(--muted);
-    margin: 0;
+    font-size: 12px;
+    max-width: 340px;
+    margin: 10px 0 0;
+  }
+
+  .hint {
+    color: var(--muted);
+    font-size: 11px;
+    margin: 10px 0 0;
   }
 </style>

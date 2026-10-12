@@ -11,5 +11,5 @@ export function matchesKonami(buffer: string[]): boolean {
 }
 
 export function matchesSubsonic(buffer: string): boolean {
-  return buffer.toLowerCase().includes('subsonic')
+  return buffer.toLowerCase() === 'subsonic'
 }

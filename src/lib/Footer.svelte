@@ -1,16 +1,26 @@
 <script lang="ts">
-  const version = 'v8.1.0'
+  import { VERSION } from './changelog'
 </script>
 
 <footer class="footer">
   <div class="container footer-top">
     <div class="mark">
-      <svg width="18" height="14" viewBox="0 0 18 14" fill="none">
-        <rect x="0" y="5" width="3" height="9" fill="var(--accent)" />
-        <rect x="5" y="2" width="3" height="12" fill="var(--accent)" />
-        <rect x="10" y="6" width="3" height="8" fill="var(--accent)" />
-        <rect x="15" y="0" width="3" height="14" fill="var(--accent)" />
+      <svg width="16" height="18" viewBox="0 0 140 155" fill="none">
+        <rect x="28" y="15" width="13" height="133" rx="6" fill="var(--muted)" />
+        <rect x="45" y="15" width="13" height="133" rx="6" fill="var(--muted)" />
+        <rect x="63" y="15" width="10" height="34" rx="5" fill="var(--muted)" />
+        <rect x="77" y="15" width="10" height="30" rx="5" fill="var(--muted)" />
+        <rect x="91" y="15" width="10" height="26" rx="5" fill="var(--muted)" />
+        <rect x="105" y="15" width="10" height="22" rx="5" fill="var(--muted)" />
+        <rect x="63" y="80" width="10" height="28" rx="5" fill="var(--muted)" />
+        <rect x="77" y="80" width="10" height="24" rx="5" fill="var(--muted)" />
+        <rect x="91" y="80" width="10" height="20" rx="5" fill="var(--muted)" />
       </svg>
+      <div class="eq-bars">
+        {#each Array(4) as _, i}
+          <span style="animation-delay: {i * 0.15}s"></span>
+        {/each}
+      </div>
       <span>Firmium — smooth, fast, simple. Forever.</span>
     </div>
     <div class="links">
@@ -20,7 +30,7 @@
       <a href="https://github.com/fossisawesome/firmium/blob/main/LICENSE" target="_blank" rel="noreferrer">GPL-3.0</a>
     </div>
   </div>
-  <div class="version-line">Currently {version}</div>
+  <div class="version-line">Currently {VERSION}</div>
 </footer>
 
 <style>
@@ -44,6 +54,28 @@
     gap: 10px;
     color: var(--muted);
     font-size: 13px;
+  }
+
+  .eq-bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 2px;
+    height: 12px;
+  }
+
+  .eq-bars span {
+    width: 3px;
+    height: 100%;
+    background: var(--accent);
+    opacity: 0.7;
+    border-radius: 1px;
+    transform-origin: bottom;
+    animation: eqBar 1.1s ease-in-out infinite;
+  }
+
+  @keyframes eqBar {
+    0%, 100% { transform: scaleY(0.3); }
+    50% { transform: scaleY(1); }
   }
 
   .links {

@@ -6,7 +6,7 @@
     { glyph: '≡', title: '10-band equalizer', desc: 'Graphic and parametric modes, saveable profiles, assigned per output device.' },
     { glyph: '♪', title: 'Synced lyrics', desc: 'LRC line highlighting with word-by-word karaoke fill, tinted to the cover art.' },
     { glyph: '▶', title: 'Radio & smart mixes', desc: 'Start Radio from any track, album, or artist. Build a mix by BPM energy and genre.' },
-    { glyph: '◎', title: 'GPU visualizer', desc: 'Bars, Lines, and Scope modes with bloom, trails, and colors pulled from the art.' },
+    { glyph: '◎', title: 'Podcasts', desc: 'Subscribe by RSS feed and play episodes in the same player, resuming where you left off.' },
     { glyph: '↻', title: 'Cross-device queue sync', desc: 'Pause on your phone, pick up the exact same queue on desktop or the watch.' },
     { glyph: '⤓', title: 'Local + offline library', desc: 'Point it at a folder on disk, or download tracks from your server; local copies play automatically when present.' },
     { glyph: '▤', title: 'Recap & stats', desc: 'Swipeable cards of top tracks, artists, streaks, and discoveries — exportable as CSV or JSON.' },
@@ -17,8 +17,8 @@
   <div class="container">
     <div class="header reveal" use:revealOnScroll>
       <div class="eyebrow">FEATURES</div>
-      <h2>Everything you need, nothing you don't</h2>
-      <p class="subhead">A full-featured client without the bloat.</p>
+      <h2>Built for listening, not tapping around</h2>
+      <p class="subhead">Every feature below runs the same on desktop and Android — sync stays in lockstep.</p>
     </div>
     <div class="grid stagger reveal" use:revealOnScroll>
       {#each features as f, i}
@@ -42,25 +42,6 @@
   .header {
     text-align: center;
     margin-bottom: 48px;
-  }
-
-  .reveal {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.6s, transform 0.6s;
-  }
-
-  .reveal:global(.show) {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .eyebrow {
-    color: var(--accent);
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    margin-bottom: 8px;
   }
 
   h2 {
@@ -98,6 +79,7 @@
     height: 38px;
     border-radius: 8px;
     background: var(--accent-dim);
+    border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
     display: flex;
     align-items: center;
     justify-content: center;

@@ -2,15 +2,15 @@
   import { revealOnScroll } from './revealOnScroll'
 
   const platforms = [
-    { icon: 'fa-brands fa-linux', label: 'Linux' },
-    { icon: 'fa-brands fa-windows', label: 'Windows' },
-    { icon: 'fa-brands fa-apple', label: 'macOS' },
-    { icon: 'fa-brands fa-freebsd', label: 'FreeBSD' },
-    { icon: 'fa-brands fa-android', label: 'Android' },
-    { icon: 'fa-solid fa-car', label: 'Android Auto' },
-    { icon: 'fa-regular fa-clock', label: 'Wear OS' },
-    { icon: 'fa-solid fa-tv', label: 'Android TV' },
-    { icon: 'fa-solid fa-terminal', label: 'Terminal' },
+    { label: 'Linux' },
+    { label: 'Windows' },
+    { label: 'macOS' },
+    { label: 'FreeBSD' },
+    { label: 'Android' },
+    { label: 'Android Auto' },
+    { label: 'Wear OS' },
+    { label: 'Android TV' },
+    { label: 'Terminal' },
   ]
 
   let cliHover = $state(false)
@@ -20,7 +20,7 @@
   <div class="container">
     <div class="header reveal" use:revealOnScroll>
       <div class="eyebrow">PLATFORMS</div>
-      <h2>Everywhere you are</h2>
+      <h2>Everywhere you listen</h2>
       <p class="subhead">One login, one library, synced across all of it.</p>
     </div>
     <div class="badges reveal" use:revealOnScroll>
@@ -32,7 +32,6 @@
           onmouseenter={() => p.label === 'Terminal' && (cliHover = true)}
           onmouseleave={() => p.label === 'Terminal' && (cliHover = false)}
         >
-          <i class={p.icon}></i>
           <span>{p.label}</span>
           {#if p.label === 'Terminal' && cliHover}
             <div class="tooltip">
@@ -56,25 +55,6 @@
   .header {
     text-align: center;
     margin-bottom: 40px;
-  }
-
-  .reveal {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.6s, transform 0.6s;
-  }
-
-  .reveal:global(.show) {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .eyebrow {
-    color: var(--accent);
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    margin-bottom: 8px;
   }
 
   h2 {

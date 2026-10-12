@@ -1,16 +1,15 @@
 <script lang="ts">
-  import logo from '../assets/logo.svg'
-
   let { version, onLogoEgg }: { version: string; onLogoEgg: () => void } = $props()
 
   let clickTimes: number[] = []
 
   function onLogoClick(e: MouseEvent) {
+    e.preventDefault()
+    window.scrollTo({ top: 0 })
     const now = Date.now()
     clickTimes = [...clickTimes, now].filter((t) => now - t < 1800)
     if (clickTimes.length >= 5) {
       clickTimes = []
-      e.preventDefault()
       onLogoEgg()
     }
   }
@@ -19,12 +18,11 @@
 <header class="nav">
   <div class="container nav-inner">
     <a href="/" class="brand" onclick={onLogoClick}>
-      <img src={logo} alt="Firmium logo" class="brand-logo" />
       <span class="brand-name">Firmium</span>
     </a>
     <div class="right">
       <span class="version-pill">{version}</span>
-      <a class="btn btn-primary nav-cta" href="https://github.com/fossisawesome/firmium/releases" target="_blank" rel="noreferrer">
+      <a class="btn btn-primary nav-cta" href="#download">
         Download
       </a>
     </div>
@@ -51,19 +49,13 @@
   .brand {
     display: flex;
     align-items: center;
-    gap: 10px;
     color: var(--text);
-  }
-
-  .brand-logo {
-    width: 24px;
-    height: 24px;
   }
 
   .brand-name {
     font-size: 19px;
     font-weight: 700;
-    background: linear-gradient(180deg, #e8c97e 40%, #863bff 100%);
+    background: linear-gradient(180deg, var(--accent) 40%, var(--text) 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -85,7 +77,7 @@
 
   .nav-cta {
     background: var(--accent);
-    color: #151109 !important;
+    color: var(--accent-text) !important;
     font-weight: 700;
     padding: 9px 18px;
     border-radius: 6px;

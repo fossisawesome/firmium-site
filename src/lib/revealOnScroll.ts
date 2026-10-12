@@ -1,5 +1,5 @@
 export function revealOnScroll(node: HTMLElement, options?: { threshold?: number }) {
-  const threshold = options?.threshold ?? 0.15
+  const threshold = options?.threshold ?? 0
   const observer = new IntersectionObserver(
     (entries) => {
       for (const entry of entries) {

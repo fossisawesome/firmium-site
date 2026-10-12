@@ -4,6 +4,9 @@ export interface ChangelogEntry {
   bullets: string[]
 }
 
+// Bump by hand with each app release (the app's bump-version script does not touch this site).
+export const VERSION = 'v8.1.0'
+
 export const FALLBACK_CHANGELOG: ChangelogEntry[] = [
   { version: 'v8.1.0', tag: 'Desktop / Android', bullets: ['Favorites — new Favorites screen/view (desktop and Android), backend/API support for favorite tracking.', 'Spotify-layout polish — home screen and player bar refined to match Spotify-style layout.'] },
   { version: 'v8.0.0', tag: 'Wear OS', bullets: ['Standalone playback — browse and play your library directly on the watch, no phone needed.', 'Browse UI — Home, Artist, Album, Playlist, and Search screens on the watch.'] },
@@ -26,9 +29,9 @@ export function parseChangelog(markdown: string): ChangelogEntry[] {
     const tagMatch = body.match(/^##\s+(.+)$/m)
     const tag = tagMatch ? stripMarkdown(tagMatch[1]) : ''
 
-    const bulletMatches = [...body.matchAll(/^-\s+\*\*(.+?)\*\*\s*—\s*(.+)$/gm)]
+    const bulletMatches = [...body.matchAll(/^-\s+(?:\*\*(.+?)\*\*\s*—\s*)?(.+)$/gm)]
     const bullets = bulletMatches.slice(0, 2).map((m) => {
-      const combined = `${m[1]} — ${m[2]}`
+      const combined = m[1] ? `${m[1]} — ${m[2]}` : m[2]
       const stripped = stripMarkdown(combined)
       return stripped.length > 150 ? stripped.slice(0, 150) + '…' : stripped
     })
@@ -36,7 +39,7 @@ export function parseChangelog(markdown: string): ChangelogEntry[] {
     entries.push({ version, tag, bullets })
   }
 
-  return entries
+  return entries.filter((e) => e.bullets.length > 0)
 }
 
 export async function fetchChangelog(): Promise<ChangelogEntry[]> {

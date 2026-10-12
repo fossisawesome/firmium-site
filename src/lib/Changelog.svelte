@@ -48,25 +48,6 @@
     margin-bottom: 32px;
   }
 
-  .reveal {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.6s, transform 0.6s;
-  }
-
-  .reveal:global(.show) {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .eyebrow {
-    color: var(--accent);
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    margin-bottom: 8px;
-  }
-
   h2 {
     font-size: 38px;
     margin: 0;
