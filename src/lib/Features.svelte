@@ -9,7 +9,7 @@
     { glyph: '◎', title: 'Podcasts', desc: 'Subscribe by RSS feed and play episodes in the same player, resuming where you left off.' },
     { glyph: '↻', title: 'Cross-device queue sync', desc: 'Pause on your phone, pick up the exact same queue on desktop or the watch.' },
     { glyph: '⤓', title: 'Local + offline library', desc: 'Point it at a folder on disk, or download tracks from your server; local copies play automatically when present.' },
-    { glyph: '▤', title: 'Recap & stats', desc: 'Swipeable cards of top tracks, artists, streaks, and discoveries — exportable as CSV or JSON.' },
+    { glyph: '▤', title: 'Play history', desc: 'Every finished track is logged on your device, exportable as CSV or JSON.' },
   ]
 </script>
 
