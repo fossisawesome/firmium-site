@@ -1,4 +1,7 @@
 <script lang="ts">
+  import { fade, scale } from 'svelte/transition'
+  import { quintOut } from 'svelte/easing'
+
   let { open, onClose }: { open: boolean; onClose: () => void } = $props()
 
   const commits = [
@@ -12,14 +15,14 @@
 </script>
 
 {#if open}
-  <div class="scrim" onclick={(e) => e.target === e.currentTarget && onClose()} role="presentation">
-    <div class="dialog" role="dialog" aria-modal="true" aria-label="Commit log" tabindex="-1">
+  <div class="scrim" in:fade={{ duration: 200 }} out:fade={{ duration: 150 }} onclick={(e) => e.target === e.currentTarget && onClose()} role="presentation">
+    <div class="dialog" in:scale={{ start: 0.96, duration: 200, easing: quintOut }} role="dialog" aria-modal="true" aria-label="Commit log" tabindex="-1">
       <pre>{commits.join('\n')}</pre>
     </div>
   </div>
 {/if}
 
-<style>
+<style lang="scss">
   .scrim {
     position: fixed;
     inset: 0;

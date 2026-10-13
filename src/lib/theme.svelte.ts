@@ -1,5 +1,3 @@
-import { writable, type Writable } from 'svelte/store'
-
 export interface Theme {
   id: string
   name: string
@@ -40,7 +38,7 @@ export const THEMES: Theme[] = [
 
 const STORAGE_KEY = 'firmium-theme'
 
-export const themeId: Writable<string> = writable('firmium')
+export const themeState = $state({ id: 'firmium' })
 
 function writeVars(theme: Theme) {
   const root = document.documentElement.style
@@ -55,10 +53,18 @@ function writeVars(theme: Theme) {
   root.setProperty('--error', theme.error)
 }
 
+/** Click-driven switch: briefly enables color transitions so the page doesn't cut. */
+export function switchTheme(id: string): void {
+  const root = document.documentElement
+  root.classList.add('theme-switching')
+  applyTheme(id)
+  setTimeout(() => root.classList.remove('theme-switching'), 250)
+}
+
 export function applyTheme(id: string): void {
   const theme = THEMES.find((t) => t.id === id) ?? THEMES[0]
   writeVars(theme)
-  themeId.set(theme.id)
+  themeState.id = theme.id
   try {
     localStorage.setItem(STORAGE_KEY, theme.id)
   } catch {

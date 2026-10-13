@@ -18,11 +18,12 @@
   </div>
 </section>
 
-<style>
+<style lang="scss">
   .how {
     max-width: 1000px;
     margin: 0 auto;
-    padding: 0 48px;
+    padding: 24px 48px 56px;
+    text-align: center;
   }
 
   .steps {
@@ -33,20 +34,22 @@
   }
 
   .num {
-    font-size: 28px;
+    font-size: 40px;
     font-weight: 700;
+    letter-spacing: -0.04em;
     color: var(--accent);
     margin-bottom: 8px;
   }
 
   h3 {
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 700;
+    letter-spacing: -0.02em;
     margin: 0 0 6px;
   }
 
   p {
-    font-size: 13.5px;
+    font-size: 14.5px;
     color: var(--muted);
     margin: 0;
   }

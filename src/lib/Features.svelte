@@ -2,114 +2,113 @@
   import { revealOnScroll } from './revealOnScroll'
 
   const features = [
-    { glyph: '~', title: 'Gapless & crossfade', desc: 'Next track preloads silently. Configurable 1–12s crossfade with linear or logarithmic curve.' },
-    { glyph: '≡', title: '10-band equalizer', desc: 'Graphic and parametric modes, saveable profiles, assigned per output device.' },
-    { glyph: '♪', title: 'Synced lyrics', desc: 'LRC line highlighting with word-by-word karaoke fill, tinted to the cover art.' },
-    { glyph: '▶', title: 'Radio & smart mixes', desc: 'Start Radio from any track, album, or artist. Build a mix by BPM energy and genre.' },
-    { glyph: '◎', title: 'Podcasts', desc: 'Subscribe by RSS feed and play episodes in the same player, resuming where you left off.' },
-    { glyph: '↻', title: 'Cross-device queue sync', desc: 'Pause on your phone, pick up the exact same queue on desktop or the watch.' },
-    { glyph: '⤓', title: 'Local + offline library', desc: 'Point it at a folder on disk, or download tracks from your server; local copies play automatically when present.' },
-    { glyph: '▤', title: 'Play history', desc: 'Every finished track is logged on your device, exportable as CSV or JSON.' },
+    { title: 'Gapless & crossfade', desc: 'Next track preloads silently. Configurable 1–12s crossfade with linear or logarithmic curve.' },
+    { title: '10-band equalizer', desc: 'Graphic and parametric modes, saveable profiles, assigned per output device.' },
+    { title: 'Synced lyrics', desc: 'LRC line highlighting with word-by-word karaoke fill, tinted to the cover art.' },
+    { title: 'Radio & smart mixes', desc: 'Start Radio from any track, album, or artist. Build a mix by BPM energy and genre.' },
+    { title: 'Podcasts', desc: 'Subscribe by RSS feed and play episodes in the same player, resuming where you left off.' },
+    { title: 'Cross-device queue sync', desc: 'Pause on your phone, pick up the exact same queue on desktop or the watch.' },
+    { title: 'Local + offline library', desc: 'Point it at a folder on disk, or download tracks from your server; local copies play automatically when present.' },
+    { title: 'Play history', desc: 'Every finished track is logged on your device, exportable as CSV or JSON.' },
   ]
 </script>
 
 <section class="features">
   <div class="container">
-    <div class="header reveal" use:revealOnScroll>
+    <div class="header reveal" {@attach revealOnScroll()}>
       <div class="eyebrow">FEATURES</div>
-      <h2>Built for listening, not tapping around</h2>
+      <h2>Gapless. Actually.</h2>
       <p class="subhead">Every feature below runs the same on desktop and Android — sync stays in lockstep.</p>
     </div>
-    <div class="grid stagger reveal" use:revealOnScroll>
+    <ol class="list stagger reveal" {@attach revealOnScroll()}>
       {#each features as f, i}
-        <div class="card" style="transition-delay: {0.03 + i * 0.05}s">
-          <div class="icon">{f.glyph}</div>
+        <li class="row" style="--i: {i}">
+          <span class="num">{String(i + 1).padStart(2, '0')}</span>
           <h3>{f.title}</h3>
           <p>{f.desc}</p>
-        </div>
+        </li>
       {/each}
-    </div>
+    </ol>
   </div>
 </section>
 
-<style>
+<style lang="scss">
   .features {
     max-width: 1160px;
     margin: 0 auto;
-    padding: 100px 48px 40px;
+    padding: 112px 48px 48px;
   }
 
   .header {
     text-align: center;
-    margin-bottom: 48px;
+    margin-bottom: 64px;
   }
 
   h2 {
-    font-size: 38px;
-    margin: 0 0 8px;
+    font-size: clamp(32px, 5.6vw, 60px);
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+    margin: 0;
   }
 
   .subhead {
     color: var(--muted);
-    margin: 0;
+    max-width: 560px;
+    margin: 12px auto 0;
+    font-size: 18px;
   }
 
-  .grid {
+  .list {
+    list-style: none;
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .row {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1px;
-    background: var(--border);
-    border-radius: 14px;
-    overflow: hidden;
-  }
-
-  .card {
-    background: var(--surface);
-    padding: 28px 24px;
+    grid-template-columns: 56px minmax(0, 1fr) minmax(0, 1.4fr);
+    gap: 24px;
+    align-items: baseline;
+    padding: 28px 16px;
+    border-top: 1px solid var(--border);
     transition: background 0.2s, box-shadow 0.2s;
   }
 
-  .card:hover {
-    background: var(--surface2);
-    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 40%, transparent);
+  @media (hover: hover) {
+    .row:hover {
+      background: var(--surface);
+      box-shadow: inset 2px 0 0 var(--accent);
+    }
   }
 
-  .icon {
-    width: 38px;
-    height: 38px;
-    border-radius: 8px;
-    background: var(--accent-dim);
-    border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
+  /* one-shot entrance; keyframes (not transition-delay) so hover stays instant */
+  .list:global(.show) .row {
+    animation: rowIn 350ms var(--ease-out) backwards;
+    animation-delay: calc(min(var(--i), 7) * 40ms);
+  }
+
+  @keyframes rowIn {
+    from { opacity: 0; transform: translateY(12px); }
+  }
+
+  .num {
+    font-size: 13px;
     color: var(--accent);
-    margin-bottom: 16px;
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-
-  .card:hover .icon {
-    transform: scale(1.15) rotate(-4deg);
-    box-shadow: 0 0 16px color-mix(in srgb, var(--accent) 50%, transparent);
   }
 
   h3 {
-    font-size: 16px;
+    font-size: 22px;
     font-weight: 700;
-    margin: 0 0 8px;
-  }
-
-  .card p {
-    font-size: 13.5px;
-    color: var(--muted);
+    letter-spacing: -0.02em;
     margin: 0;
   }
 
-  @media (max-width: 900px) {
-    .grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
+  .row p {
+    font-size: 13.5px;
+    color: var(--muted);
+    margin: 0;
   }
 
   @media (max-width: 700px) {
@@ -117,8 +116,13 @@
       padding: 60px 20px 20px;
     }
 
-    .grid {
-      grid-template-columns: 1fr;
+    .row {
+      grid-template-columns: 40px minmax(0, 1fr);
+      row-gap: 6px;
+    }
+
+    .row p {
+      grid-column: 2;
     }
   }
 </style>

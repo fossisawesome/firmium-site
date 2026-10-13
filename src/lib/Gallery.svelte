@@ -13,11 +13,11 @@
 
 <section class="gallery">
   <div class="container">
-    <div class="header reveal" use:revealOnScroll>
+    <div class="header reveal" {@attach revealOnScroll()}>
       <div class="eyebrow">GALLERY</div>
-      <h2>Every screen, considered</h2>
+      <h2>What it looks like</h2>
     </div>
-    <div class="grid reveal" use:revealOnScroll>
+    <div class="grid reveal" {@attach revealOnScroll()}>
       {#each items as item}
         <div class="card">
           <div class="frame">
@@ -31,20 +31,22 @@
   </div>
 </section>
 
-<style>
+<style lang="scss">
   .gallery {
     max-width: 1160px;
     margin: 0 auto;
-    padding: 40px 48px;
+    padding: 96px 48px 48px;
   }
 
   .header {
     text-align: center;
-    margin-bottom: 48px;
+    margin-bottom: 64px;
   }
 
   h2 {
-    font-size: 38px;
+    font-size: clamp(32px, 5.6vw, 60px);
+    line-height: 1.05;
+    letter-spacing: -0.04em;
     margin: 0;
   }
 
@@ -55,11 +57,13 @@
   }
 
   .card {
-    transition: transform 0.2s;
+    transition: transform 0.3s var(--ease-out);
   }
 
-  .card:hover {
-    transform: translateY(-4px);
+  @media (hover: hover) {
+    .card:hover {
+      transform: translateY(-4px);
+    }
   }
 
   .frame {
@@ -76,11 +80,10 @@
 
   .shot {
     width: 100%;
-    height: 260px;
+    aspect-ratio: 842 / 517;
     object-fit: cover;
-    object-position: top;
     display: block;
-    transition: transform 0.3s;
+    transition: transform 0.5s var(--ease-out);
   }
 
   .card:hover .shot {
@@ -101,10 +104,6 @@
   @media (max-width: 900px) {
     .grid {
       grid-template-columns: 1fr;
-    }
-
-    .shot {
-      height: auto;
     }
   }
 </style>

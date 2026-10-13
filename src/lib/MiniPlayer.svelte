@@ -8,7 +8,7 @@
 
 <svelte:window onscroll={onScroll} />
 
-<div class="mini-player" class:visible>
+<div class={["mini-player", { visible }]}>
   <div class="container mini-inner">
     <div class="cover"></div>
     <div class="track-info">
@@ -23,7 +23,7 @@
   </div>
 </div>
 
-<style>
+<style lang="scss">
   .mini-player {
     position: fixed;
     bottom: 0;
@@ -33,7 +33,7 @@
     backdrop-filter: blur(10px);
     border-top: 1px solid var(--border);
     transform: translateY(100%);
-    transition: transform 0.3s ease;
+    transition: transform 0.25s var(--ease-out);
     z-index: 40;
   }
 

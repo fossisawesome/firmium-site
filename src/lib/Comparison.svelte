@@ -2,33 +2,33 @@
   import { revealOnScroll } from './revealOnScroll'
 
   const rows: [string, string][] = [
-    ['Own your files, play local folders', '✗'],
+    ['Own your files, play local folders', 'No'],
     ['No subscription', '$10–15/mo'],
-    ['Open source (GPL-3.0)', '✗'],
-    ['No account required', '✗'],
+    ['Open source (GPL-3.0)', 'No'],
+    ['No account required', 'No'],
     ['Works fully offline', 'Limited'],
   ]
 </script>
 
 <section class="comparison">
   <div class="container">
-    <div class="header reveal" use:revealOnScroll>
+    <div class="header reveal" {@attach revealOnScroll()}>
       <div class="eyebrow">WHY FIRMIUM</div>
       <h2>Not another streaming app</h2>
     </div>
-    <table class="reveal" use:revealOnScroll>
+    <table class="reveal" {@attach revealOnScroll()}>
       <thead>
         <tr>
           <th></th>
-          <th class="accent">Firmium</th>
-          <th>Paid streaming services</th>
+          <th class="accent firmium">Firmium</th>
+          <th>Paid streaming</th>
         </tr>
       </thead>
       <tbody>
         {#each rows as [label, other]}
           <tr>
             <td>{label}</td>
-            <td class="accent">✓</td>
+            <td class="accent firmium">Yes</td>
             <td class="muted">{other}</td>
           </tr>
         {/each}
@@ -37,51 +37,60 @@
   </div>
 </section>
 
-<style>
+<style lang="scss">
   .comparison {
-    max-width: 760px;
+    max-width: 1160px;
     margin: 0 auto;
-    padding: 40px 48px;
+    padding: 96px 48px;
   }
 
   .header {
     text-align: center;
-    margin-bottom: 32px;
+    margin-bottom: 56px;
   }
 
   h2 {
-    font-size: 38px;
+    font-size: clamp(32px, 5.6vw, 60px);
+    line-height: 1.05;
+    letter-spacing: -0.04em;
     margin: 0;
   }
 
   table {
     width: 100%;
+    max-width: 820px;
+    margin: 0 auto;
+    display: table;
     table-layout: fixed;
     border-collapse: collapse;
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    overflow: hidden;
   }
 
   th, td {
-    padding: 14px 20px;
+    padding: 18px 16px;
     text-align: left;
     border-bottom: 1px solid var(--border);
-    font-size: 14px;
+    font-size: 15px;
     overflow-wrap: break-word;
   }
 
+  th {
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
   th:first-child, td:first-child {
-    width: 42%;
+    width: 46%;
   }
 
-  th:nth-child(2), td:nth-child(2),
-  th:nth-child(3), td:nth-child(3) {
-    text-align: center;
+  .firmium {
+    background: var(--surface);
   }
 
-  tr:last-child td {
-    border-bottom: none;
+  td.firmium {
+    font-weight: 700;
   }
 
   .accent {
@@ -98,8 +107,18 @@
     }
 
     th, td {
-      padding: 10px 8px;
-      font-size: 12px;
+      padding: 12px 8px;
+      font-size: 13px;
+    }
+
+    th {
+      font-size: 10px;
+      letter-spacing: 0.02em;
+      overflow-wrap: normal;
+    }
+
+    th:first-child, td:first-child {
+      width: 40%;
     }
   }
 </style>

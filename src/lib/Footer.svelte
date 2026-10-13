@@ -1,7 +1,3 @@
-<script lang="ts">
-  import { version } from './changelog'
-</script>
-
 <footer class="footer">
   <div class="container footer-top">
     <div class="mark">
@@ -30,10 +26,9 @@
       <a href="https://github.com/fossisawesome/firmium/blob/main/LICENSE" target="_blank" rel="noreferrer">GPL-3.0</a>
     </div>
   </div>
-  {#if $version}<div class="version-line">Currently {$version}</div>{/if}
 </footer>
 
-<style>
+<style lang="scss">
   .footer {
     border-top: 1px solid var(--border);
     padding: 32px 48px 60px;
@@ -80,22 +75,17 @@
 
   .links {
     display: flex;
-    gap: 20px;
+    flex-wrap: wrap;
+    gap: 8px 20px;
   }
 
   .links a {
     color: var(--muted);
     font-size: 13px;
+    white-space: nowrap;
   }
 
   .links a:hover {
     color: var(--accent);
-  }
-
-  .version-line {
-    text-align: center;
-    color: var(--muted);
-    font-size: 12px;
-    margin-top: 24px;
   }
 </style>

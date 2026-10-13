@@ -18,7 +18,7 @@
   </div>
 </section>
 
-<style>
+<style lang="scss">
   .cta-wrap {
     max-width: 1160px;
     margin: 0 auto;

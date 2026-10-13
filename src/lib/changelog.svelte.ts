@@ -1,14 +1,16 @@
-import { derived, writable } from 'svelte/store'
-
 export interface ChangelogEntry {
   version: string
   tag: string
   bullets: string[]
 }
 
-export const changelog = writable<ChangelogEntry[]>([])
-// Empty until the fetch succeeds; the UI hides anything that depends on it.
-export const version = derived(changelog, (e) => e[0]?.version ?? '')
+class ChangelogState {
+  entries = $state.raw<ChangelogEntry[]>([])
+  // Empty until the fetch succeeds; the UI hides anything that depends on it.
+  version = $derived(this.entries[0]?.version ?? '')
+}
+
+export const changelog = new ChangelogState()
 
 function stripMarkdown(text: string): string {
   return text.replace(/\[([^\]]+)\]\([^)]*\)/g, '$1').replace(/\*\*/g, '').replace(/`/g, '').trim()
@@ -51,5 +53,5 @@ export async function fetchChangelog(): Promise<ChangelogEntry[]> {
 }
 
 export function loadChangelog() {
-  fetchChangelog().then((e) => changelog.set(e))
+  fetchChangelog().then((e) => changelog.entries = e)
 }

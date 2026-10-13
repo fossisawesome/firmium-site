@@ -29,14 +29,19 @@
   </div>
 </header>
 
-<style>
+<style lang="scss">
   .nav {
     position: sticky;
     top: 0;
     z-index: 50;
-    background: color-mix(in srgb, var(--bg) 85%, transparent);
-    backdrop-filter: blur(10px);
+    background: color-mix(in srgb, var(--bg) 72%, transparent);
+    backdrop-filter: blur(20px) saturate(160%);
     border-bottom: 1px solid var(--border);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset;
+
+    @media (prefers-reduced-transparency: reduce) {
+      background: var(--bg);
+    }
     padding: 18px 48px;
   }
 

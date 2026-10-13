@@ -1,25 +1,22 @@
 <script lang="ts">
-  import { THEMES, themeId, applyTheme } from './theme'
+  import { THEMES, themeState, switchTheme } from './theme.svelte'
   import { revealOnScroll } from './revealOnScroll'
 </script>
 
 <section class="themes">
   <div class="container">
-    <div class="header reveal" use:revealOnScroll>
+    <div class="header reveal" {@attach revealOnScroll()}>
       <div class="eyebrow">THEMES</div>
       <h2>Make it yours</h2>
       <p class="subhead">20 built-in color themes, ported straight from the app. Click one — this whole site re-themes live.</p>
     </div>
-    <div class="grid reveal" use:revealOnScroll>
+    <div class="grid reveal" {@attach revealOnScroll()}>
       {#each THEMES as t}
-        <button
-          class="card"
-          class:active={$themeId === t.id}
-          onclick={() => applyTheme(t.id)}
-        >
+        <button class={["card", { active: themeState.id === t.id }]}
+          onclick={() => switchTheme(t.id)}>
           <div class="row">
             <span class="name">{t.name}</span>
-            {#if $themeId === t.id}<span class="active-dot"></span>{/if}
+            {#if themeState.id === t.id}<span class="active-dot"></span>{/if}
           </div>
           <div class="swatches">
             <span class="swatch" style="background: {t.bg}"></span>
@@ -33,27 +30,30 @@
   </div>
 </section>
 
-<style>
+<style lang="scss">
   .themes {
     max-width: 1160px;
     margin: 0 auto;
-    padding: 40px 48px;
+    padding: 96px 48px;
   }
 
   .header {
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 56px;
   }
 
   h2 {
-    font-size: 38px;
-    margin: 0 0 8px;
+    font-size: clamp(32px, 5.6vw, 60px);
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+    margin: 0;
   }
 
   .subhead {
     color: var(--muted);
-    max-width: 500px;
-    margin: 0 auto;
+    max-width: 560px;
+    margin: 12px auto 0;
+    font-size: 18px;
   }
 
   .grid {
@@ -70,7 +70,11 @@
     text-align: left;
     cursor: pointer;
     font-family: var(--font);
-    transition: transform 0.15s, border-color 0.15s;
+    transition: transform 0.2s var(--ease-out), border-color 0.15s;
+  }
+
+  .card:active {
+    transform: scale(0.97);
   }
 
   .card.active {

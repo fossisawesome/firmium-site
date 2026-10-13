@@ -1,8 +1,13 @@
-@import './styles/_tokens.scss';
+@use './styles/tokens';
 
 :root {
   --accent-text: #151109;
   --timing: 0.15s;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html {
+  scroll-padding-top: 88px; /* sticky nav height, keeps anchor targets visible */
 }
 
 * {
@@ -21,6 +26,7 @@ body {
   color: var(--text);
   font-size: 16px;
   line-height: 1.6;
+  -webkit-tap-highlight-color: transparent;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -79,7 +85,7 @@ img {
 .reveal {
   opacity: 0;
   transform: translateY(24px);
-  transition: opacity 0.6s, transform 0.6s;
+  transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
 }
 
 .reveal.show {
@@ -105,7 +111,12 @@ img {
   border-radius: 6px;
   border: 1px solid var(--border);
   text-decoration: none;
-  transition: background var(--timing), border-color var(--timing), color var(--timing);
+  transition: background var(--timing), border-color var(--timing), color var(--timing), transform 0.12s var(--ease-out);
+}
+
+/* feedback on press, not release */
+.btn:active {
+  transform: scale(0.97);
 }
 
 .btn:hover {
@@ -133,13 +144,47 @@ img {
   border-color: var(--accent);
 }
 
+/* theme picker: crossfade colors for the ~250ms the class is set */
+html.theme-switching,
+html.theme-switching *,
+html.theme-switching *::before,
+html.theme-switching *::after {
+  transition: background-color 200ms var(--ease-out), border-color 200ms var(--ease-out), color 200ms var(--ease-out), box-shadow 200ms var(--ease-out) !important;
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  * {
+    backdrop-filter: none !important;
+  }
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    --border: rgba(255, 255, 255, 0.35);
+    --muted: #b8b8b8;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {
     animation: none !important;
-    transition: none !important;
     scroll-behavior: auto !important;
+  }
+
+  /* keep short opacity/color feedback, drop movement */
+  .reveal {
+    transform: none;
+    transition: opacity 0.2s ease;
+  }
+
+  .btn,
+  .badge,
+  .card,
+  .icon {
+    transition-property: background, border-color, color, opacity, box-shadow !important;
+    transition-duration: 0.15s !important;
   }
 
   .crt-boot {

@@ -28,6 +28,7 @@
 
 <section class="hero">
   <div class="container hero-inner">
+    <div class="hero-copy">
     <h1 class="flicker">
       Your library.<br />
       Every device.<br />
@@ -41,8 +42,8 @@
       <a class="btn btn-primary" href="#download">
         Download Firmium
       </a>
-      <a class="btn btn-secondary" href="https://docs.firmium.app" target="_blank" rel="noreferrer">
-        Read the docs
+      <a class="learn" href="https://docs.firmium.app" target="_blank" rel="noreferrer">
+        Read the docs &rsaquo;
       </a>
     </div>
     <p class="muted-line">
@@ -52,6 +53,7 @@
       Star on GitHub
       {#if stars !== null}<span class="star-count">★ {stars}</span>{/if}
     </a>
+    </div>
     <div
       class="hero-window-wrap"
       role="group"
@@ -72,20 +74,20 @@
   </div>
 </section>
 
-<style>
+<style lang="scss">
   .hero {
-    max-width: 1160px;
+    max-width: 1240px;
     margin: 0 auto;
     padding: 96px 48px 64px;
     text-align: center;
   }
 
   h1 {
-    font-size: 64px;
-    line-height: 1.05;
+    font-size: clamp(40px, 8.4vw, 96px);
+    line-height: 1.02;
     font-weight: 700;
-    letter-spacing: -0.02em;
-    margin: 0 0 20px;
+    letter-spacing: -0.04em;
+    margin: 0 0 28px;
     animation: flicker 6s infinite;
   }
 
@@ -96,26 +98,43 @@
 
   .subhead {
     color: var(--muted);
-    font-size: 19px;
-    max-width: 600px;
-    margin: 0 auto 32px;
+    font-size: clamp(16px, 2.2vw, 20px);
+    line-height: 1.55;
+    max-width: 640px;
+    margin: 0 auto 36px;
   }
 
   .hero-actions {
     display: flex;
     flex-wrap: wrap;
-    gap: 12px;
+    gap: 12px 28px;
+    align-items: center;
     justify-content: center;
-    margin-bottom: 20px;
+    margin-bottom: 28px;
   }
 
   .btn {
-    transition: transform 0.15s, box-shadow 0.15s;
+    border-radius: 999px;
+    padding: 12px 26px;
+    transition: transform 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out), background var(--timing), border-color var(--timing);
   }
 
-  .btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px color-mix(in srgb, var(--accent) 35%, transparent);
+  .learn {
+    color: var(--accent);
+    font-size: 16px;
+    padding: 12px 0;
+  }
+
+  @media (hover: hover) {
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px color-mix(in srgb, var(--accent) 35%, transparent);
+    }
+  }
+
+  .btn:active {
+    transform: scale(0.97);
+    box-shadow: none;
   }
 
   .muted-line {
@@ -130,7 +149,6 @@
     gap: 6px;
     color: var(--muted);
     font-size: 13px;
-    margin-bottom: 48px;
   }
 
   .star-link:hover {
@@ -143,8 +161,8 @@
 
   .hero-window-wrap {
     position: relative;
-    max-width: 920px;
-    margin: 0 auto;
+    max-width: 1040px;
+    margin: 72px auto 0;
   }
 
   .hero-glow {
@@ -159,7 +177,7 @@
     display: block;
     border: 1px solid var(--border);
     border-radius: 14px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.65);
     animation: floatUp 6s ease-in-out infinite;
   }
 
@@ -179,24 +197,29 @@
 
   .vbar {
     width: 3px;
-    height: 12px;
+    height: 16px;
     background: var(--accent);
     border-radius: 2px;
+    transform-origin: bottom;
     animation: vbarPulse ease-in-out infinite;
   }
 
   @keyframes vbarPulse {
-    0%, 100% { height: 4px; }
-    50% { height: 16px; }
+    0%, 100% { transform: scaleY(0.25); }
+    50% { transform: scaleY(1); }
   }
 
   @media (max-width: 700px) {
     .hero {
-      padding: 56px 20px 40px;
+      padding: 64px 20px 40px;
     }
 
-    h1 {
-      font-size: 40px;
+    .hero-window-wrap {
+      margin-top: 48px;
+    }
+
+    .visualizer {
+      right: 0;
     }
   }
 </style>

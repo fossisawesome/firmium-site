@@ -1,17 +1,17 @@
 <script lang="ts">
   import { revealOnScroll } from './revealOnScroll'
-  import { changelog as entries } from './changelog'
+  import { changelog } from './changelog.svelte'
 </script>
 
-{#if $entries.length > 0}
+{#if changelog.entries.length > 0}
 <section class="changelog">
   <div class="container">
-    <div class="header reveal" use:revealOnScroll>
+    <div class="header reveal" {@attach revealOnScroll()}>
       <div class="eyebrow">CHANGELOG</div>
       <h2>Actively built, in the open</h2>
     </div>
-    <div class="list reveal" use:revealOnScroll>
-      {#each $entries as entry}
+    <div class="list reveal" {@attach revealOnScroll()}>
+      {#each changelog.entries as entry}
         <div class="entry">
           <div class="version-row">
             <span class="version">{entry.version}</span>
@@ -32,36 +32,34 @@
 </section>
 {/if}
 
-<style>
+<style lang="scss">
   .changelog {
     max-width: 900px;
     margin: 0 auto;
-    padding: 40px 48px;
+    padding: 96px 48px;
   }
 
   .header {
     text-align: center;
-    margin-bottom: 32px;
+    margin-bottom: 56px;
   }
 
   h2 {
-    font-size: 38px;
+    font-size: clamp(32px, 5.6vw, 60px);
+    line-height: 1.05;
+    letter-spacing: -0.04em;
     margin: 0;
   }
 
   .list {
     display: flex;
     flex-direction: column;
-    gap: 1px;
-    background: var(--border);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    overflow: hidden;
+    border-bottom: 1px solid var(--border);
   }
 
   .entry {
-    background: var(--surface);
-    padding: 20px 24px;
+    border-top: 1px solid var(--border);
+    padding: 20px 12px;
   }
 
   .version-row {
@@ -92,7 +90,7 @@
   .full-link {
     display: block;
     text-align: center;
-    margin-top: 24px;
+    margin-top: 32px;
     color: var(--accent);
     font-size: 13px;
   }

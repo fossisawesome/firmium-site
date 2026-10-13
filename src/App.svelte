@@ -1,12 +1,13 @@
 <script lang="ts">
   import { onMount } from 'svelte'
-  import { initTheme } from './lib/theme'
-  import { loadChangelog, version } from './lib/changelog'
+  import { initTheme } from './lib/theme.svelte'
+  import { loadChangelog, changelog } from './lib/changelog.svelte'
   import { matchesKonami, matchesSubsonic } from './lib/easterEggs'
   import Nav from './lib/Nav.svelte'
   import Hero from './lib/Hero.svelte'
   import HowItWorks from './lib/HowItWorks.svelte'
   import Features from './lib/Features.svelte'
+  import Story from './lib/Story.svelte'
   import Gallery from './lib/Gallery.svelte'
   import Platforms from './lib/Platforms.svelte'
   import Comparison from './lib/Comparison.svelte'
@@ -14,7 +15,6 @@
   import Changelog from './lib/Changelog.svelte'
   import Cta from './lib/Cta.svelte'
   import Footer from './lib/Footer.svelte'
-  import MiniPlayer from './lib/MiniPlayer.svelte'
   import LogoEasterEgg from './lib/LogoEasterEgg.svelte'
 
   let logoEggOpen = $state(false)
@@ -71,14 +71,15 @@
 <div class="crt-vignette"></div>
 <div class="crt-boot"></div>
 
-<div class="page" class:degauss={konamiActive}>
+<div class={["page", { degauss: konamiActive }]}>
   <a href="#main-content" class="skip-link">Skip to content</a>
 
-  <Nav version={$version} onLogoEgg={() => (logoEggOpen = true)} />
+  <Nav version={changelog.version} onLogoEgg={() => (logoEggOpen = true)} />
 
   <main id="main-content" tabindex="-1">
     <Hero {diagOpen} onOpenDiag={openDiag} />
     <HowItWorks />
+    <Story />
     <Features />
     <Gallery />
     <Platforms />
@@ -89,7 +90,6 @@
   </main>
 
   <Footer />
-  <MiniPlayer />
 </div>
 
 <LogoEasterEgg open={logoEggOpen} onClose={() => (logoEggOpen = false)} />
@@ -105,7 +105,7 @@
   <div class="subsonic-flash"></div>
 {/if}
 
-<style>
+<style lang="scss">
   :global(body) {
     scroll-behavior: smooth;
   }
